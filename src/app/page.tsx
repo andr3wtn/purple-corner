@@ -5,6 +5,7 @@ import AboutUs from '@/components/AboutUs';
 import Events from '@/components/Events';
 import Resources from '@/components/Resources';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -30,6 +31,8 @@ export default function Home() {
          <Events />
 
          <Resources />
+
+         <Footer />
     </>
     
   );
