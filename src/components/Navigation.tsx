@@ -14,10 +14,10 @@ export default function Navigation() {
     <nav className="flex justify-end py-6">
       {/* Desktop Navs */}
       <ul className="hidden lg:flex lg:gap-6 md:gap-4 font-semibold text-white">
-        <ListItem className="" href="/">
+        <ListItem className="" href="#">
           Home
         </ListItem>
-        <ListItem className="" href="/">
+        <ListItem className="" href="/about-us">
           About Us
         </ListItem>
         <ListItem className="" href="/events">
@@ -26,7 +26,7 @@ export default function Navigation() {
         <ListItem className="" href="/resources">
           Resources
         </ListItem>
-        <ListItem className="" href="/">
+        <ListItem className="" href="#footer">
           Contacts
         </ListItem>
       </ul>
