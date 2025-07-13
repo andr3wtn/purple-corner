@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-import ListItem from "@/components/ListItem";
 import AboutUs from '@/components/AboutUs';
 import Events from '@/components/Events';
 import Resources from '@/components/Resources';
