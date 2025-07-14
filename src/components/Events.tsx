@@ -59,54 +59,65 @@ export default function Events() {
     };
 
     return (
-        <section className="min-h-screen px-10 py-10 flex justify-center items-center flex-col lg:flex-row gap-5">
-            <div className="w-[500px] shrink-0">
-                <Image
-                src="/images/events.png"
-                alt="Event 1"
-                width={500}
-                height={500}
-                className="w-full h-auto object-contain"
-                />
-            </div>
-            <div className="bg-[#310d51] text-white py-10 px-15 flex-1 grow-1 text-left sm:h-100 sm:w-100 md:h-125 md:w-125 lg:w-auto flex flex-col h-[600px]">
-                <div className="flex justify-between items-center">
-                    <h2 className="text-4xl mb-4 text-[3.875rem]">Events</h2>
-                    <button 
-                        className="bg-purple-600 hover:bg-purple-700 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 whitespace-nowrap"
-                        onClick={() => router.push('/events')}
-                    >
-                        View More About Events
-                    </button>
+        <section className="max-w-[1450px] mx-auto my-20">
+            <div className="flex flex-col justify-center md:flex-row gap-5 w-full sm:px-10"> {/* New wrapper div for padding */}
+                {/* Image Container */}
+                <div className="relative h-[300px] md:h-[500px] overflow-hidden shrink-0 
+                                md:w-1/2 lg:w-auto lg:max-w-[500px] hidden md:flex justify-end"> {/* Added hidden md:flex */}
+                    <Image
+                        src="/images/events.png"
+                        alt="Event 1"
+                        width={500}
+                        height={500}
+                        className="w-full h-full object-cover object-right md:object-center" 
+                    />
                 </div>
 
-                <div className="space-y-4 flex-1 flex flex-col min-h-0">
-                    <h3 className="text-2xl font-semibold mb-6">Upcoming Events</h3>
-                    <div className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-4">
-                        {upcomingEvents.map((event) => (
-                            <div
-                                key={event.id}
-                                className="bg-white/10 rounded-lg px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 hover:bg-white/15 transition-colors cursor-pointer"
-                                onClick={() => handleCardClick(event.id)}
-                            >
-                                <div className="flex-1">
-                                    <h4 className="text-xl font-semibold mb-2">{event.name}</h4>
-                                    <div className="text-gray-300">
-                                        <p className="text-lg">{event.date}</p>
-                                        <p className="text-sm">{event.time}</p>
+                {/* Events Container */}
+                <div className="bg-[#310d51] text-white py-5 lg:py-10 px-10 lg:px-13 
+                                flex-1 flex flex-col md:h-[500px] max-h-[700px] 
+                                md:min-w-[350px] lg:w-auto max-w-[700px]"> {/* Removed md:max-w to simplify for this structure */}
+                    <div className="flex flex-wrap justify-between items-center mb-4 gap-3 min-w-[300px]">
+                        <h2 className="text-[3rem] sm:text-[3.875rem]">Events</h2>
+                        <button 
+                            className="bg-purple-600 hover:bg-purple-700 hover:scale-105 font-semibold py-1 px-2 sm:py-2 sm:px-5 
+                            rounded-lg transform transition-all duration-200 whitespace-nowrap text-lg sm:text-xl"
+                            onClick={() => router.push('/events')}
+                        >
+                            View More
+                        </button>
+                    </div>
+
+                    <div className="space-y-4 flex-1 flex flex-col min-h-0">
+                        <h3 className="text-2xl font-semibold mb-4">Upcoming Events</h3>
+                        <div className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-4">
+                            {upcomingEvents.map((event) => (
+                                <div
+                                    key={event.id}
+                                    className="bg-white/10 rounded-lg px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 hover:bg-white/15 transition-colors cursor-pointer"
+                                    onClick={() => handleCardClick(event.id)}
+                                >
+                                    <div className="flex-1">
+                                        <h4 className="text-xl font-semibold mb-2">{event.name}</h4>
+                                        <div className="text-gray-300">
+                                            <p className="text-lg">{event.date}</p>
+                                            <p className="text-sm">{event.time}</p>
+                                        </div>
+                                    </div>
+                                    <div className="text-center">
+                                        <button
+                                            onClick={e => { e.stopPropagation(); handleRSVPClick(event.id, event.name); }}
+                                            className="bg-purple-600 w-2/3 sm:w-full hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 whitespace-nowrap tracking-wide"
+                                        >
+                                            RSVP
+                                        </button>
                                     </div>
                                 </div>
-                                <button
-                                    onClick={e => { e.stopPropagation(); handleRSVPClick(event.id, event.name); }}
-                                    className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 whitespace-nowrap"
-                                >
-                                    RSVP
-                                </button>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div> {/* End of new wrapper div */}
             <RSVPModal
                 open={modalOpen}
                 onClose={closeModal}
