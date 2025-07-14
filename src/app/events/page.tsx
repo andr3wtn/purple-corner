@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "@/components/Header"
+import Footer from "@/components/Footer"
 
 export default function EventsPage() {
   return (
@@ -11,6 +12,8 @@ export default function EventsPage() {
         {/* TODO: List of events will go here */}
         <div className="mt-8 p-6 bg-pink-50 rounded shadow text-pink-700">No events listed yet. Check back soon!</div>
       </div>
+
+      <Footer />
     </>
 
   );
