@@ -6,8 +6,11 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath: isProd ? "/purple-corner-website" : "",
   assetPrefix: isProd ? "/purple-corner-website/" : "",
-    eslint: {
+  eslint: {
     ignoreDuringBuilds: true,
+  },
+  images: {
+    unoptimized: true
   }
 };
 
