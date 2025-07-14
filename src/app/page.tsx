@@ -27,7 +27,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="text-3xl px-8 py-4 font-semibold tracking-wide mb-4 bg-[#E6A4EF] hover:bg-[#D488E4] hover:scale-105 text-[#0A0A0A] rounded-2xl transform transition-all duration-300"
               >
-                Become A Member
+                Join Our Mailing List
               </a>
             </div>
           </div>
