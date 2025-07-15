@@ -34,8 +34,8 @@ export default function Header() {
     { label: "Contacts", href:'#footer' }
   ]
   return (
-    <header className=" top-0 z-50 bg-[#310D51] px-10 py-5 flex justify-between">
-      <Image alt="light background logo" src="/images/logo_light.svg" width={90} height={90} className="rounded-full" />
+    <header className="top-0 z-50 bg-[#310D51] px-10 py-2 flex justify-between items-center">
+      <Image alt="light background logo" src="/images/logo_light.svg" width={60} height={60} className="w-[60px] h-[60px] !rounded-full object-cover" />
       <nav className="flex justify-end py-6">
         {/* Desktop Navs */}
         <ul className="hidden lg:flex lg:gap-6 md:gap-4 font-semibold text-white">

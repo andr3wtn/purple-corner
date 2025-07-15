@@ -10,13 +10,13 @@ export default function Footer({ id }: FooterProps) {
     const phoneNumber = "+44xxxxxxxxx";
     const email = "info@purplecorner.org";
     return (
-        <footer id={id} className="bg-[#310D51] text-white p-10 md:p-20 md:pb-10 flex-1 grow-1 text-left md:h-auto lg:w-auto">
+        <footer id={id} className="bg-[#310D51] text-white p-5 md:px-20 md:py-10 flex-1 grow-1 text-left md:h-auto lg:w-auto">
             <div className="flex items-center gap-5">
                 <Image alt="light background logo" src="/images/logo_light.svg" width={90} height={90} className="rounded-full" />
                 <h1 className="text-5xl">PURPLE CORNER</h1>
             </div>
 
-            <div className="flex gap-4 mt-10 lg:mt-20 flex-col md:flex-row">
+            <div className="flex gap-4 mt-7 lg:mt-10 flex-col md:flex-row">
                 <div className="flex-1 grow-1 border py-5 px-8">
                     <h3 className="text-2xl mb-5">Address</h3>
                     <p>Address Line 1</p>
