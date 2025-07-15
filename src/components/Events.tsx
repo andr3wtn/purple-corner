@@ -10,31 +10,31 @@ const upcomingEvents = [
     {
         id: 1,
         name: "Purple Corner Meet & Greet",
-        date: "December 15, 2024",
+        date: "September 15, 2025",
         time: "6:00 PM - 8:00 PM"
     },
     {
         id: 2,
         name: "Community Networking Night",
-        date: "December 22, 2024",
+        date: "September 22, 2025",
         time: "7:00 PM - 9:00 PM"
     },
     {
         id: 3,
         name: "Holiday Celebration",
-        date: "December 28, 2024",
+        date: "September 28, 2025",
         time: "5:00 PM - 10:00 PM"
     },
     {
         id: 4,
         name: "New Year's Kickoff",
-        date: "January 5, 2025",
+        date: "January 5, 2026",
         time: "6:30 PM - 11:00 PM"
     },
     {
         id: 5,
         name: "Winter Workshop Series",
-        date: "January 12, 2025",
+        date: "January 12, 2026",
         time: "2:00 PM - 5:00 PM"
     }
 ];

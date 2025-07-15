@@ -36,10 +36,6 @@ export default function Footer({ id }: FooterProps) {
                         <Image src="/images/instagram.svg" alt="Instagram" width={30} height={30} className=""/>
                         <span className="text-lg">@ox_purple_corner</span>
                     </a>
-                    {/* <Link className="mt-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200" href="https://buy.stripe.com/7sYbJ24LdgnygzCgElbZe00"
-              target="_blank">
-                        Become a member
-                    </Link> */}
                 </div>
             </div>
 
