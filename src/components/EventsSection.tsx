@@ -42,6 +42,7 @@ const upcomingEvents = [
 export default function Events() {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalEvent, setModalEvent] = useState<{ id: number; name: string } | null>(null);
+
     const router = useRouter();
 
     const handleCardClick = (eventId: number) => {

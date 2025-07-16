@@ -8,7 +8,6 @@ interface EventProps {
     showsDesc?: boolean;
 }
 
-
 export default function SingleEvent({ id, name, date, time, showsDesc }: EventProps){
     return (             
         <div

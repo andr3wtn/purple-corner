@@ -1,6 +1,6 @@
 import Image from "next/image";
 import AboutUs from '@/components/AboutUs';
-import Events from '@/components/Events';
+import Events from '@/components/EventsSection';
 import Resources from '@/components/Resources';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
