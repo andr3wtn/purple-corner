@@ -183,7 +183,7 @@ export default function AdminPage() {
 
             <section className="px-10 pt-5 pb-10 border rounded-lg bg-white/30">
                 <h2 className="text-[1.75rem] text-left">Manage Events</h2>
-                <div className="relative w-full sm:w-2/3 md:max-w-[500px]">
+                <div className="relative w-full py-5">
                     <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
                     <input
                     placeholder="Search event by name"

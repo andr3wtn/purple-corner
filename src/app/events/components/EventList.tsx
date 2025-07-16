@@ -77,7 +77,7 @@ export default function EventsList() {
           name={event.name}
           date={event.date}
           time={event.time}
-          showsDesc={true}
+          desc={event.desc}
         />
       ))}
     </div>
