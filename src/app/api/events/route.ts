@@ -1,57 +1,41 @@
 import { NextResponse } from "next/server"
-
-// let events: any[] = [];
-
-/* --------- Hard-coded events --------
-    TODO: REPLACE WITH DB LATER 
-*/
-let events = [
-  { id: 1, name: "Purple Corner Meet & Greet", date: "2025-09-15", time: "6:00 PM - 8:00 PM", desc: "description" },
-    { id: 2, name: "Community Networking Night", date: "September 22, 2025", time: "7:00 PM - 9:00 PM" },
-    {
-        id: 3,
-        name: "Holiday Celebration",
-        date: "September 28, 2025",
-        time: "5:00 PM - 10:00 PM"
-    },
-    {
-        id: 4,
-        name: "New Year's Kickoff",
-        date: "January 5, 2026",
-        time: "6:30 PM - 11:00 PM"
-    },
-    {
-        id: 5,
-        name: "Winter Workshop Series",
-        date: "January 12, 2026",
-        time: "2:00 PM - 5:00 PM"
-    }
-];
+import { PrismaClient } from '../../../generated/prisma/client';
+const prisma = new PrismaClient();
 
 
 export async function GET() {
-    return NextResponse.json(events);
+    try {
+        const events = await prisma.event.findMany();
+        return NextResponse.json(events);
+    } catch (error) {
+        return NextResponse.json({ error: "Events fetching failed", details: error }, { status: 500 });
+    }
 }
 
 export async function POST(req: Request) {
     const body = await req.json();
-    const { name, date, time, description } = body;
+    const { name, date, startTime, endTime, desc } = body;
 
-    if (!name || !date || !time) {
+    if (!name || !date || !startTime) {
         return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const newEvent = {
-        id: Date.now(),
-        name,
-        date,
-        time,
-        desc: description || ""
+    try {
+        const newEvent = await prisma.event.create({
+            data: {
+                name,
+                date,
+                startTime,
+                endTime,
+                desc
+            },
+        });
+        return NextResponse.json({ Message: "event added", event: newEvent });
+    } catch (err: any) {
+        console.error("Error creating event:", err);
+        return NextResponse.json({ error: err.message }, { status: 500 });
     }
 
-    events.push(newEvent);
-
-    return NextResponse.json({ Message: "event added", event: newEvent })
 }
 
 export async function PUT(req: Request) {
@@ -62,27 +46,22 @@ export async function PUT(req: Request) {
         return NextResponse.json({message: "Missing ID"}, {status: 400});
     }
 
-    // Parse ID and get corresponding event's index
+    // Parse ID and update event
     const id = parseInt(idParam, 10);
-    const index = events.findIndex((e) => e.id == id);
-    if (index === -1) {
-        return NextResponse.json({ message: "Event not found" }, { status: 404 });
-    }
-
-    // Parse request info
     const body = await req.json();
-    const { name, date, time, desc } = body;
+    const { name, date, startTime, endTime, desc } = body;
 
-    // Edit event info
-    events[index] = {
-    ...events[index],
-    ...(name && { name }),
-    ...(date && { date }),
-    ...(time && { time }),
-    ...(desc && { desc })
-  };
-
-    return NextResponse.json({ message:"Edit Success", event: events[index] }, { status: 200 });
+    const updatedEvent = await prisma.event.update({
+        where: { id },
+        data: {
+            ...(name && { name }),
+            ...(date && { date }),
+            ...(startTime && { startTime }),
+            ...(endTime && ( endTime )),
+            ...(desc && { desc })
+        },
+    });
+  return NextResponse.json({ message: "Edit Success", event: updatedEvent }, { status: 200 });
 }
 
 export async function DELETE(req: Request) {
@@ -94,14 +73,7 @@ export async function DELETE(req: Request) {
     }
 
     const id = parseInt(idParam, 10);
-    const index = events.findIndex((e) => e.id === id);
-    if (index === -1) {
-        return NextResponse.json({ message: "Event not found" }, { status: 404 });
-    }
-
-    const deleted = events[index];
-    events.splice(index, 1);
-
-    return NextResponse.json({message: "Event deleted", deleted});
+    const deleted = await prisma.event.delete({ where: { id } });
+    return NextResponse.json({ message: "Event deleted", deleted });
 }   
 

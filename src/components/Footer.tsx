@@ -46,7 +46,13 @@ export default function Footer({ id }: FooterProps) {
                 </div>
             </div>
 
-            <p className="text-center mt-8 text-gray-300 text-sm">© 2025 Purple Corner. All rights reserved.</p>
+            <p className="text-center mt-8 text-gray-300 text-sm">© 2025 Purple Corner. All rights reserved. 
+                <button
+                    className="underline hover:text-gray-100"
+                >
+                 Site information
+                </button>
+            </p>
         </footer>
     )
 }

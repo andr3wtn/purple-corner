@@ -22,7 +22,7 @@ export default function Resources() {
 
             <div className="w-[300px] sm:w-[400px] lg:w-[500px] shrink-0">
                 <Image
-                src="/images/events.png"
+                src="/images/resources.jpg"
                 alt="Resource 1"
                 width={500}
                 height={500}

@@ -21,9 +21,10 @@ export default function Login() {
         }
     }
 
-    return (<div className="p-20">
+    return (
+    <div className="p-20">
         <h1 className="text-[3rem] m-0">Admin Login Page</h1>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} className="flex gap-5">
             <input
                 type="text"
                 placeholder="Username"
@@ -41,7 +42,7 @@ export default function Login() {
             />
             <button
                 type="submit"
-                className="bg-purple-700 hover:bg-purple-800 text-white rounded-lg p-3"
+                className="px-5 bg-purple-700 hover:bg-purple-800 text-white rounded-lg p-3"
             >Login</button>
         </form>
     </div>)

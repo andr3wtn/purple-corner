@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import RSVPModal from "./RSVPModal";
+import SingleEvent from "./components/SingleEvent";
+import RSVPModal from "../../components/RSVPModal";
 
 // Hardcoded event data
 const upcomingEvents = [
@@ -66,7 +67,7 @@ export default function Events() {
                 <div className="relative h-[300px] md:h-[500px] overflow-hidden shrink-0 
                                 md:w-1/2 lg:w-auto lg:max-w-[500px] hidden md:flex justify-end"> {/* Added hidden md:flex */}
                     <Image
-                        src="/images/events.png"
+                        src="/images/events.jpg"
                         alt="Event 1"
                         width={500}
                         height={500}

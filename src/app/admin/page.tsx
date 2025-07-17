@@ -1,22 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import SingleEvent from "@/components/SingleEvent";
-
-interface EventItem {
-  id: number;
-  name: string;
-  date: string;
-  time: string;
-  desc?: string;
-}
+import SingleEvent from "@/app/events/components/SingleEvent";
+import { EventItem } from "@/types/events";
 
 export default function AdminPage() {
 
     const [addFormData, setAddFormData] = useState({
         name: "",
         date: "",
-        time: "",
+        startTime: "",
+        endTime: "",
         desc: "",
     });
     const [submitted, setSubmitted] = useState(false);
@@ -35,12 +29,13 @@ export default function AdminPage() {
             if (!res.ok) { throw new Error('Failed to add event'); }
             const data = await res.json();
 
+            await fetchEvents();
+            
             // Showing "submitted!" text
             setSubmitted(true);
 
             // Setting the input fields empty
-            setAddFormData({name: "", date: "", time: "", desc: "", });
-
+            setAddFormData({name: "", date: "", startTime: "", endTime: "", desc: "", });
             console.debug("Event added:", data.event);
 
             // Hide the submitted message after 3 seconds
@@ -80,18 +75,20 @@ export default function AdminPage() {
     const [editFormData, setEditFormData] = useState({
         name: "",
         date: "",
-        time: "",
+        startTime: "",
+        endTime: "",
         desc: "",
     });
     const toggleEditEvent = (event: EventItem) => {
         setEditingEvent(event);
 
         console.log("date: " + event.date);
-        console.log("time: " + event.time);
+        console.log("Start Time: " + event.startTime);
         setEditFormData({
             name: event.name,
             date: event.date,
-            time: event.time,
+            startTime: event.startTime,
+            endTime: event.endTime || "",
             desc: event.desc || "",
         });
         setIsEditing(true);
@@ -132,56 +129,104 @@ export default function AdminPage() {
         }
     };
 
+
+    const FormLabel = ({ htmlFor, children, required, className }: { htmlFor: string; children: React.ReactNode; required?: boolean, className?: string; }) => (
+    <label htmlFor={htmlFor} className={`block text-lg font-medium text-purple-900 ${className}`}>
+        {children} {required && <span className="text-red-500">*</span>}
+    </label>
+    );
+
     return (
         <div className="p-10 max-w-[1000px] mx-auto relative">
             <h1 className="text-[3.5rem]">Admin Page</h1>
-            <section className="px-10 pt-5 pb-10 border rounded-lg bg-white/30 mb-5">
+            <section className="px-10 pt-5 pb-10 border rounded-lg bg-white/45 mb-5">
                 <h2 className="text-[1.75rem] text-left">Add an event!</h2>
                 <form className="pt-5 flex flex-col gap-3 items-center" onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-3 justify-between sm:flex-row w-full">
                         {/* Event Title */}
-                        <input 
-                            placeholder="Event title"
-                            value={addFormData.name}
-                            onChange={(e) => setAddFormData({ ...addFormData, name: e.target.value})}
-                            className="border rounded w-full flex-1 p-2"
-                            required
-                        ></input>
+                        <div className="flex-1">
+                            <FormLabel htmlFor="eventTitle" required>Event Title</FormLabel>
+                            <input 
+                                id="eventTitle"
+                                placeholder="Event title"
+                                value={addFormData.name}
+                                onChange={(e) => setAddFormData({ ...addFormData, name: e.target.value})}
+                                className="border rounded w-full flex-1 p-2"
+                                required
+                            ></input>
+                        </div>
 
                         {/* Event Date */}
-                        <input
-                            type="date"
-                            value={addFormData.date}
-                            onChange={(e) => setAddFormData({ ...addFormData, date: e.target.value })}
-                            className="border p-2 rounded flex-1"
-                            required
-                        />
+                        <div className="flex-1">
+                            <FormLabel htmlFor="eventDate" required>Date</FormLabel>
+                            <input
+                                id="eventDate"
+                                type="date"
+                                value={addFormData.date}
+                                onChange={(e) => setAddFormData({ ...addFormData, date: e.target.value })}
+                                className="border p-2 w-full rounded"
+                                required
+                            />
+                        </div>
 
-                        {/* Event time */}
-                        <input
-                            type="time"
-                            value={addFormData.time}
-                            onChange={(e) => setAddFormData({ ...addFormData, time: e.target.value })}
-                            className="border p-2 rounded flex-1"
-                            required
-                        />
+                        <div className="flex-1 flex gap-4">
+                            {/* Event start time */}
+                            <div className="flex-1">
+                                <FormLabel htmlFor="eventStartTime" required>Start Time</FormLabel>
+                                <input
+                                    id="eventStartTime"
+                                    type="time"
+                                    value={addFormData.startTime}
+                                    onChange={(e) => setAddFormData({ ...addFormData, startTime: e.target.value })}
+                                    className="border p-2 rounded"
+                                    required
+                                />
+                            </div>
+
+                            {/* Event end time */}
+                            <div className="flex-1">
+                                <FormLabel htmlFor="eventEndTime">End Time</FormLabel>
+                                <input
+                                    id="eventEndTime"
+                                    type="time"
+                                    value={addFormData.endTime}
+                                    onChange={(e) => setAddFormData({ ...addFormData, endTime: e.target.value })}
+                                    className="border p-2 rounded"
+                                    required
+                                />
+                            </div>
+                        </div>
                     </div>
 
-                    <textarea 
-                        rows={5}
-                        placeholder="Please enter the event details here"
-                        value={addFormData.desc}
-                        onChange={(e) => setAddFormData({...addFormData, desc: e.target.value})}
-                        className="border w-full rounded p-2"
-                    ></textarea>
+                    {/* Event Details */}
+                    <div className="w-full">
+                        <FormLabel htmlFor="eventDescription">Event Details</FormLabel>
+                        <textarea 
+                            id="eventDescription"
+                            rows={5}
+                            placeholder="Please enter the event details here"
+                            value={addFormData.desc}
+                            onChange={(e) => setAddFormData({...addFormData, desc: e.target.value})}
+                            className="border w-full rounded p-2"
+                        ></textarea>
+                    </div>
+
+                    {/* Image Upload */
+                    /* <div className="">
+                        <FormLabel htmlFor="imageUpload" className="cursor-pointer bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md shadow-md transition-all duration-200">Upload</FormLabel>
+                        <input type="file" name="image" accept="image/*"
+                        className="hidden" />
+                        
+                    </div> */}
                     
-                    <button type="submit" className="border rounded-lg w-1/3 bg-purple-700 text-white">Submit</button>
+                    <p className="text-sm"><span className="text-red-500">*</span> indicates required fields</p>
+                    <button type="submit" className="py-2 rounded-lg w-1/3 bg-purple-700 text-white hover:bg-purple-800">Submit</button>
 
                     {submitted && <p className="text-green-600 font-medium mt-2">Event submitted successfully!</p>}
                 </form>
             </section>
 
-            <section className="px-10 pt-5 pb-10 border rounded-lg bg-white/30">
+            <section className="px-10 pt-5 pb-10 border rounded-lg bg-white/45">
                 <h2 className="text-[1.75rem] text-left">Manage Events</h2>
                 <div className="relative w-full py-5">
                     <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
@@ -198,7 +243,8 @@ export default function AdminPage() {
                           id={event.id}
                           name={event.name}
                           date={event.date}
-                          time={event.time}
+                          startTime={event.startTime}
+                          endTime={event.endTime}
                           desc={event.desc}
                           isAdmin={true}
                           onEdit={() => toggleEditEvent(event)}
@@ -247,8 +293,8 @@ export default function AdminPage() {
                                 {/* Event time */}
                                 <input
                                     type="time"
-                                    value={editFormData.time}
-                                    onChange={(e) => setEditFormData({ ...editFormData, time: e.target.value })}
+                                    value={editFormData.startTime}
+                                    onChange={(e) => setEditFormData({ ...editFormData, startTime: e.target.value })}
                                     className="border p-2 rounded flex-1"
                                     required
                                 />
@@ -262,7 +308,7 @@ export default function AdminPage() {
                                 className="border w-full rounded p-2"
                             ></textarea>
                             
-                            <button type="submit" className="border rounded-lg w-1/3 bg-purple-700 text-white">Submit</button>
+                            <button type="submit" className="rounded-lg w-1/3 bg-purple-700 text-white">Submit</button>
                         </form>
                     </div>
                 </>

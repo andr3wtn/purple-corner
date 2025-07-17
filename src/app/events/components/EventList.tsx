@@ -1,15 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import SingleEvent from "@/components/SingleEvent";
-
-interface EventItem {
-  id: number;
-  name: string;
-  date: string;
-  time: string;
-  desc?: string;
-}
+import SingleEvent from "@/app/events/components/SingleEvent";
+import { EventItem } from "@/types/events";
 
 export default function EventsList() {
   const [searchInput, setSearchInput] = useState("");
@@ -76,7 +69,8 @@ export default function EventsList() {
           id={event.id}
           name={event.name}
           date={event.date}
-          time={event.time}
+          startTime={event.startTime}
+          endTime={event.endTime}
           desc={event.desc}
         />
       ))}
