@@ -1,4 +1,4 @@
-import { Image } from "openai/resources.js";
+import Image from "next/image";
 
 export interface EventItem {
   id: number;
@@ -7,5 +7,5 @@ export interface EventItem {
   startTime: string;
   endTime?: string;
   desc?: string;
-  photo?: Image;
+  photo?: string;
 }
