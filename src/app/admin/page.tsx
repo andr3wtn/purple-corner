@@ -145,7 +145,7 @@ export default function AdminPage() {
                     <div className="flex flex-col gap-3 justify-between sm:flex-row w-full">
                         {/* Event Title */}
                         <div className="flex-1">
-                            <FormLabel htmlFor="eventTitle" required>Event Title</FormLabel>
+                            <FormLabel htmlFor="eventTitle">Event Title</FormLabel>
                             <input 
                                 id="eventTitle"
                                 placeholder="Event title"
